@@ -29,20 +29,6 @@ flowchart LR
 |------|------|
 | **역할** | `vehicle_count`, `vehicle_count_hourly` 등 적재 테이블을 SQL로 집계·페이지네이션해 JSON으로 반환 |
 | **런타임** | Python 3.11+, Uvicorn, `mysql-connector-python` |
-| **포트(예시)** | 기본 예: `8001` (`uvicorn main:app --port 8001`) |
-
----
-
-## 환경 변수
-
-`traffic-ai`의 MySQL 설정과 동일한 이름을 사용합니다.
-
-| 변수 | 설명 | 기본값(개발 예시) |
-|------|------|-------------------|
-| `MYSQL_HOST` | DB 호스트 | `127.0.0.1` |
-| `MYSQL_USER` | 사용자 | `root` |
-| `MYSQL_PASSWORD` | 비밀번호 | 코드 기본값 참고(운영에서는 반드시 설정) |
-| `MYSQL_DATABASE` | DB 이름 | `traffic` |
 
 ---
 
@@ -55,7 +41,6 @@ cd traffic_data_api
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-export MYSQL_HOST=... MYSQL_USER=... MYSQL_PASSWORD=... MYSQL_DATABASE=...
 uvicorn main:app --host 0.0.0.0 --port 8001
 ```
 
@@ -178,16 +163,3 @@ curl -G "http://localhost:8001/api/v1/matrix/hourly-by-hour" \
 curl -G "http://localhost:8001/api/v1/summary/daily" \
   --data-urlencode "range=2026-05-01,2026-05-13"
 ```
-
----
-
-## 버전·문서
-
-- 앱 메타: OpenAPI `title` **Traffic Data API**, 버전 **1.0.0** (`main.py` 기준).
-- 필드 의미·타입은 **`/docs`**가 가장 정확합니다.
-
----
-
-## 이 저장소에 대해
-
-배포용 설정 파일·의존성 목록·애플리케이션 소스는 **원격에 올리지 않고** 로컬 또는 비공개 파이프라인에서만 관리할 수 있습니다. 운영 시에는 환경 변수·DB 권한·방화벽으로 API와 DB 접근을 제한하는 것을 권장합니다.
