@@ -10,7 +10,7 @@ venv/
 .eggs/
 dist/
 build/
-db.py/
-main.py/
-queries.py/
-schemas.py/
+db.py
+main.py
+queries.py
+schemas.py
